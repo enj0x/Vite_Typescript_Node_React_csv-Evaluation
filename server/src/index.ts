@@ -3,6 +3,9 @@ import { Request, Response } from 'express';
 import { Readable } from 'stream';
 import csv from 'csv-parser';
 
+const PORT = 5000;
+const app = express();
+
 interface Speaker {
   Speaker: string;
   Topic: string;
@@ -10,14 +13,11 @@ interface Speaker {
   Words: string;
 }
 
-const PORT = 5000;
-const app = express();
-
 app.get('/evaluation', (req: Request, res: Response) => {
   const data: any = req.query.data;
   parseCsvData(data)
     .then((parsedData) => {
-      const result: string = bundleResultsToJson(parsedData);
+      const result: string = bundleResultsToJsonString(parsedData);
       res.json(result);
     })
     .catch((err: Error) => {
@@ -92,7 +92,7 @@ function findSpeakerWithMostSpeechesByTopic(arrSpeaker: Speaker[], targetTopic: 
 }
 
 function findLeastWordySpeaker(arrSpeaker: Speaker[]): object {
-  const speakerStats: { [key: string]: number } = {};
+  const speakerStats: { [speakerName: string]: number } = {};
   let fewestWords: number = Number.MAX_SAFE_INTEGER;
   let speakerWithFewestWords: string | null = null;
 
@@ -112,7 +112,7 @@ function findLeastWordySpeaker(arrSpeaker: Speaker[]): object {
   return result;
 }
 
-function bundleResultsToJson(arrSpeaker: Speaker[]): string {
+function bundleResultsToJsonString(arrSpeaker: Speaker[]): string {
   const mostSpeechesByYear: object = findSpeakerWithMostSpeechesByYear(arrSpeaker, 2013);
   const mostSpeechesByTopic: object = findSpeakerWithMostSpeechesByTopic(arrSpeaker, 'Internal Security');
   const leastWordySpeaker: object = findLeastWordySpeaker(arrSpeaker);
