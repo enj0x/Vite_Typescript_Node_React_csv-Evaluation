@@ -11,7 +11,7 @@ function App() {
     setCsvFile(event.target.files?.[0] || null);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (csvFile !== null) {
