@@ -1,4 +1,4 @@
-## devQuiz
+## Serverside CSV Evaluation Applikation
 
 ### technoligies used:
 
