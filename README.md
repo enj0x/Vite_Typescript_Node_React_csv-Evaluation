@@ -1,4 +1,4 @@
-## Serverside CSV Evaluation Applikation
+## Serverside CSV evaluation application
 
 ### technoligies used:
 
